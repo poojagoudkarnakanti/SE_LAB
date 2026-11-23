@@ -1,2 +1,31 @@
 hello
 
+
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/YOUR_USERNAME/JenkinsDemo.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                bat 'mvn clean package'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'mvn test'
+            }
+        }
+    }
+}
